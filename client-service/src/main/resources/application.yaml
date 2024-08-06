@@ -1,0 +1,19 @@
+spring:
+  webflux:
+    base-path: /demobank/api/client
+  application:
+    name: clients
+  r2dbc:
+    properties:
+      schema: demobank
+    url: r2dbc:postgresql://192.168.100.17:5432/demoBank
+    username: postgres
+    password: homeassistant
+    initialization-mode: always
+
+logging:
+  level:
+    io.r2dbc.postgresql.QUERY: DEBUG # for queries
+    io.r2dbc.postgresql.PARAM: DEBUG # for parameters
+
+
