@@ -1,8 +1,8 @@
 server:
-  port: 8001
+  port: 8000
 spring:
   webflux:
-    base-path: /demobank/api/client
+    base-path: /demobank/api/core
   application:
     name: clients
   r2dbc:
@@ -12,6 +12,10 @@ spring:
     username: postgres
     password: homeassistant
     initialization-mode: always
+
+api:
+  client:
+    url: http://localhost:8001/demobank/api/client
 
 logging:
   level:

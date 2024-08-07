@@ -30,7 +30,7 @@ public class ClientController {
     @PostMapping()
     public Mono<ResponseEntity<ApiResponse<ClientResponse>>> saveClient(@RequestBody ClientRequest request) {
         return clientService.createClient(request)
-                .flatMap(client -> Mono.just(ResponseEntity.ok(ApiResponseUtil.created(client))));
+                .flatMap(client -> Mono.just(new ResponseEntity<>(ApiResponseUtil.created(client), HttpStatus.CREATED)));
     }
 
     @PutMapping("/{id}")
