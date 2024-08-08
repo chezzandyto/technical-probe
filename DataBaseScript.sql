@@ -122,7 +122,7 @@ COMMENT ON CONSTRAINT pk_transactions ON demoBank.TRANSACTION IS 'Transaction PK
 
 --VIEW (REPORT)
 CREATE VIEW demobank.MOVREPORT AS
-    SELECT t.date, a.client_id as "client", a.id, a.account_number as account, t.type as "type", t.previous_balance as previous, t.amount, t.final_balance as "final"
+    SELECT t.date as "datetime", a.client_id as "client", a.id, a.account_number as account, t.type as "typeT", t.previous_balance as previousB, t.amount, t.final_balance as "finalB"
         FROM demoBank.TRANSACTION t
         JOIN demoBank.ACCOUNT a on a.id = t.account_id;
 
