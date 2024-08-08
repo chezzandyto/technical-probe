@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.demoBank</groupId>
-	<artifactId>clients</artifactId>
+	<artifactId>core</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>clients</name>
+	<name>core</name>
 	<description>Service to manage Clients</description>
 	<url/>
 	<licenses>

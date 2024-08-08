@@ -1,9 +1,8 @@
 package com.demoBank.core.util;
 
 import com.demoBank.core.model.ApiResponse;
-import com.demoBank.core.model.ClientErrorException;
+import com.fasterxml.jackson.core.JsonParseException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.io.Serializable;
 
@@ -25,7 +24,11 @@ public class ApiResponseUtil implements Serializable {
         return new ApiResponse<>("Error", e.getMessage(), HttpStatus.BAD_REQUEST.value());
     }
 
+    public static ApiResponse<String> badRequest(JsonParseException e) {
+        return new ApiResponse<>("Error", e.getMessage(), HttpStatus.BAD_REQUEST.value());
+    }
+
     public static ApiResponse<String> error(Exception e) {
-        return new ApiResponse<>("Error", e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return new ApiResponse<>("Error", e.getCause().getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 }

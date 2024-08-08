@@ -57,7 +57,6 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public Flux<TransactionReport> findAllByAccountIdBetween(Long accountId, LocalDate from, LocalDate to) {
         return reportViewRepository.getReport(accountId, DateUtil.atStartOfDay(from), DateUtil.atEndOfDay(to))
-                .doOnNext(a -> System.out.println(a.getPreviousb() + " " + a.getAmount() + " " + a.getFinalb() + " " + a.getDateTime()))
                 .map(a -> new TransactionReport(
                         a.getDateTime(),
                         a.getAccount(),

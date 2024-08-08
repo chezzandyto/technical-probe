@@ -3,7 +3,10 @@ package com.demoBank.core.controller;
 import com.demoBank.core.model.*;
 import com.demoBank.core.service.AccountService;
 import com.demoBank.core.util.ApiResponseUtil;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
 import lombok.AllArgsConstructor;
+import org.springframework.core.codec.DecodingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,5 +52,10 @@ public class AccountController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponseUtil.error(e));
         }
+    }
+
+    @ExceptionHandler(JsonParseException.class)
+    public ResponseEntity<ApiResponse<String>> handleJsonParseException(JsonParseException e) {
+        return ResponseEntity.badRequest().body(ApiResponseUtil.error(e));
     }
 }
