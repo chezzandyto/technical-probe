@@ -1,9 +1,13 @@
 package com.demoBank.clients.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-public class ApiResponse<T> {
+import java.io.Serializable;
+
+@Getter
+@Setter
+public class ApiResponse<T> implements Serializable {
     private String message;
     private T data;
     private int code;

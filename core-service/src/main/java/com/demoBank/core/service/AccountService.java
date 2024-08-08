@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 import java.math.BigDecimal;
 
 public interface AccountService {
-    Flux<AccountResponse> findAllByClientId(Long clientId);
+    Flux<AccountResponse> findAllByClientIdAndStatus(Long clientId, Boolean status);
     Mono<AccountResponse> createAccount(AccountCreateRequest request);
     Mono<AccountResponse> updateAccount(Long id, AccountUpdateRequest request);
     Mono<Void> updateAccount(Long id, BigDecimal amount);

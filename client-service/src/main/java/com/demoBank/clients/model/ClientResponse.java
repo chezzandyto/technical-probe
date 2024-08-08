@@ -2,6 +2,8 @@ package com.demoBank.clients.model;
 
 import com.demoBank.clients.model.enums.Gender;
 
+import java.io.Serializable;
+
 public record ClientResponse (
         Long id,
         String name,
@@ -11,4 +13,4 @@ public record ClientResponse (
         Integer age,
         String address,
         String phone
-        ) { }
+        ) implements Serializable { }

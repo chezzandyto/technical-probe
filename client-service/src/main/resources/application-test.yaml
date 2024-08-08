@@ -1,0 +1,12 @@
+spring:
+  h2:
+    console:
+      enabled: true
+  r2dbc:
+    properties:
+      schema: demobank
+    url: r2dbc:h2:mem:///testdb
+    username: sa
+    password:
+
+

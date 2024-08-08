@@ -4,11 +4,13 @@ import com.demoBank.clients.model.entity.Client;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 
+@Repository
 public interface ClientRepository extends R2dbcRepository<Client, Long> {
     @Query("SELECT * FROM Client c JOIN PERSON p ON c.id = p.id " +
             "WHERE (p.identification = :identification OR :identification IS NULL) " +

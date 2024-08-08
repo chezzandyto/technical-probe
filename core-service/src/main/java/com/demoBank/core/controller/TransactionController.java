@@ -20,11 +20,6 @@ import java.time.LocalDateTime;
 public class TransactionController {
     private final TransactionService transactionService;
 
-//    @GetMapping("/cliente/{clientId}")
-//    public Flux<AccountResponse> findByClientId(@PathVariable Long clientId) {
-//        return transactionService.findAllByClientId(clientId);
-//    }
-
     @PostMapping()
     public Mono<ResponseEntity<ApiResponse<TransactionResponse>>> newTransaction(@RequestBody TransactionCreateRequest request) {
         return transactionService.createTransaction(request)

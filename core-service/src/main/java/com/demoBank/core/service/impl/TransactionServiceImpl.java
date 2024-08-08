@@ -75,7 +75,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .singleOrEmpty()
                 .map(c -> c.name() + " " + c.lastname());
         //Get all accounts
-        Flux<AccountResponse> accounts = accountService.findAllByClientId(clientId);
+        Flux<AccountResponse> accounts = accountService.findAllByClientIdAndStatus(clientId, true);
         //Get total balance for all accounts
         Mono<BigDecimal> totalBalance = accounts
                 .map(AccountResponse::balance)

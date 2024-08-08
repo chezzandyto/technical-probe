@@ -29,14 +29,8 @@ public class ClientServiceImpl implements ClientService {
     private final PersonRepository personRepository;
 
     @Override
-    public Flux<ClientResponse> findByIdentification(String identification, String name, Long id) {
-        return Mono.defer(() -> {
-                    if (identification == null && name == null && id == null) {
-                        return Mono.error(new ClientErrorException("All query params are null, please fill at least one."));
-                    }
-                    return Mono.just(true); // Emit a single value to continue the chain
-                })
-                .thenMany(clientRepository.findByIdentification(identification, name, id))
+    public Flux<ClientResponse> findAllBy(String identification, String name, Long id) {
+        return clientRepository.findByIdentification(identification, name, id)
                 .map(clientMapper::toResponse);
     }
 
@@ -46,6 +40,10 @@ public class ClientServiceImpl implements ClientService {
         return Mono.just(request)
                 .map(clientMapper::toPerson)
                 .flatMap(personRepository::save)
+                .onErrorMap(DuplicateKeyException.class, e -> {
+                    log.error(e.getMessage());
+                    return new ClientErrorException("Client with identification: " + request.identification() + " already exists");
+                })
                 .flatMap(person -> {
                     var s = clientMapper.toClient(request);
                     return clientRepository.save(
@@ -55,11 +53,7 @@ public class ClientServiceImpl implements ClientService {
                             LocalDateTime.now()
                     );
                 })
-                .map(clientMapper::toResponse)
-                .onErrorMap(DuplicateKeyException.class, e -> {
-                    log.error(e.getMessage());
-                    return new ClientErrorException("Client with identification: " + request.identification() + " already exists");
-                });
+                .map(clientMapper::toResponse);
     }
 
     @Override

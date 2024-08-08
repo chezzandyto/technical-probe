@@ -17,8 +17,8 @@ public class AccountController {
     private final AccountService accountService;
 
     @GetMapping("/cliente/{clientId}")
-    public Flux<AccountResponse> findByClientId(@PathVariable Long clientId) {
-        return accountService.findAllByClientId(clientId);
+    public Flux<AccountResponse> findByClientId(@PathVariable Long clientId, @RequestParam Boolean status) {
+        return accountService.findAllByClientIdAndStatus(clientId, status);
     }
 
     @PostMapping()

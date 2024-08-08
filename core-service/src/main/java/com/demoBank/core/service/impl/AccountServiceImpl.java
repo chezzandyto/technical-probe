@@ -8,7 +8,6 @@ import com.demoBank.core.model.AccountResponse;
 import com.demoBank.core.model.entity.Account;
 import com.demoBank.core.model.mapper.AccountMapper;
 import com.demoBank.core.repository.AccountRepository;
-import com.demoBank.core.repository.TransactionRepository;
 import com.demoBank.core.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -19,6 +18,7 @@ import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @AllArgsConstructor
 @Service
@@ -30,9 +30,12 @@ public class AccountServiceImpl implements AccountService {
     private final AccountMapper accountMapper;
 
     @Override
-    public Flux<AccountResponse> findAllByClientId(Long clientId) {
-        return accountRepository.findAllByClientId(clientId)
-                .map(accountMapper::toResponse);
+    public Flux<AccountResponse> findAllByClientIdAndStatus(Long clientId, Boolean status) {
+        Boolean statusToQuery;
+        statusToQuery = Objects.requireNonNullElse(status, true);
+        return clientServiceClient.findById(clientId)
+                        .flatMap(c -> accountRepository.findAllByClientIdAndStatus(clientId, statusToQuery))
+                        .map(accountMapper::toResponse);
     }
 
     @Override

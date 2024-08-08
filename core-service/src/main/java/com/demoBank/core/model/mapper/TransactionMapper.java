@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface TransactionMapper {
-    @Mapping(target = "type", source = "type", qualifiedByName = "stringToType")
+    @Mapping(target = "type", source = "type")
     TransactionResponse toResponse(final Transaction transaction);
 
 }

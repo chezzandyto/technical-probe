@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 public class ClientServiceClient {
@@ -24,6 +25,7 @@ public class ClientServiceClient {
                         .build())
                 .retrieve()
                 .bodyToFlux(ClientResponse.class)
+                .switchIfEmpty(Mono.error(new ClientErrorException("Client not found with id: " + id)))
                 .onErrorMap(w -> new ClientErrorException(w.getMessage()));
     }
 }

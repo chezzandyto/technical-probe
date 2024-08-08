@@ -24,7 +24,7 @@ public class ClientController {
             @RequestParam(required = false) String identification,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Long id) {
-        return clientService.findByIdentification(identification, name, id);
+        return clientService.findAllBy(identification, name, id);
     }
 
     @PostMapping()
